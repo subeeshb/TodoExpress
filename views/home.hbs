@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <style type="text/css">
+            .todo-list {
+                list-style: square;
+            }
+            .item-status-0 {
+                font-weight: bold;
+                cursor: pointer;
+            }
+                .item-status-0:hover {
+                    text-decoration: line-through;
+                }
+            .item-status-1 {
+                text-decoration: line-through;
+                color: #555555;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>To-Do</h2>
+        <ul class="todo-list">
+            {{#if todoItems}}
+                {{#each todoItems}}
+                <li class="todo-item item-status-{{status}}" rel="{{ref}}">{{desc}}</li>
+                {{/each}}
+            {{else}}
+                <li><em>Nothing to do!</em></li>
+            {{/if}}
+        </ul>
+        <form id="new-item-form">
+            <input type="text" id="new-item-text" placeholder="Click to add a new item"/>
+            <input type="button" id="btn-add-item" value="Add"/>
+        </form>
+
+        {{#if dbError}}
+        <p>Error: {{dbError}}</p>
+        {{/if}}
+    </body>
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./scripts/todo_home.js"></script>
+</html>
