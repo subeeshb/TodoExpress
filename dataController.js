@@ -75,7 +75,7 @@ ToDoDataProvider.prototype.markComplete = function(ref, callback) {
         if( error ) callback(error);
         else {
             todo_item_collection.update(
-                {ref: ref},
+                {ref: parseInt(ref)},
                 { $set: {'status':'1'} },
                 function(error, todo_items) {
                     if(error) callback(error);
@@ -90,7 +90,21 @@ ToDoDataProvider.prototype.remove = function(ref, callback) {
         if(error) callback(error);
         else {
             todo_item_collection.remove(
-                {ref: ref},
+                {ref: parseInt(ref)},
+                function(error, todo_item){
+                    if(error) callback(error);
+                    else callback(null, todo_item)
+                });
+        }
+    });
+};
+
+ToDoDataProvider.prototype.removeAllCompleted = function(callback) {
+    this.getCollection(function(error, todo_item_collection) {
+        if(error) callback(error);
+        else {
+            todo_item_collection.remove(
+                {status: "1"},
                 function(error, todo_item){
                     if(error) callback(error);
                     else callback(null, todo_item)

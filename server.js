@@ -85,6 +85,32 @@ app.get('/api/todo/complete', function(req, res) {
     });
 });
 
+app.get('/api/todo/delete', function(req, res) {
+    var objRef = req.param('ref');
+    todoProvider.remove(objRef, function(error, items) {
+        var resp = '{"status":"0"}';
+        if(error) {
+            resp = '{"status":"500","error":'+JSON.stringify(error)+'}';
+        } else {
+            resp = '{"status":"200"}';
+        }
+        res.send(resp);
+    });
+});
+
+app.get('/api/todo/clean', function(req, res) {
+    var objRef = req.param('ref');
+    todoProvider.removeAllCompleted(function(error, items) {
+        var resp = '{"status":"0"}';
+        if(error) {
+            resp = '{"status":"500","error":'+JSON.stringify(error)+'}';
+        } else {
+            resp = '{"status":"200"}';
+        }
+        res.send(resp);
+    });
+});
+
 
 
 

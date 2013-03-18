@@ -16,6 +16,18 @@ var ToDoViewController = {
         $.get('./api/todo/new?txt='+txt, function(data) {
             location.reload();
         })
+    },
+
+    deleteSingleItem: function(itemRef) {
+        $.get('./api/todo/delete?ref='+itemRef, function(data) {
+            location.reload();
+        });
+    },
+
+    cleanItems: function() {
+        $.get('./api/todo/clean', function(data) {
+            location.reload();
+        });
     }
 };
 
@@ -26,4 +38,10 @@ $(document).ready(function() {
    $('#btn-add-item').click(function() {
        ToDoViewController.addItem($('#new-item-text').val());
    });
+    $('.btn-delete-item').click(function(e) {
+        ToDoViewController.deleteSingleItem($(e.target).attr('rel'));
+    });
+    $('#btn-clear').click(function() {
+        ToDoViewController.cleanItems();
+    })
 });
